@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Release.Name }}
+  name: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      # put 1 pod on each node only in specific pool
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: {{ .Values.nodeSelectorKey }}
+                    operator: In
+                    values:
+                      - {{ .Values.nodeSelectorValue }}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - {{ .Release.Name }}
+              topologyKey: "kubernetes.io/hostname"
+      imagePullSecrets:
+        - name: {{ .Values.imagepullsecret }}
+      containers:
+        - name: api
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: API_PATH
+              value: "{{ .Values.path }}"
+            {{- range $env_key, $env_value :=  .Values.env }}
+            {{- if (typeIs "string" $env_value.value ) }}
+            - name: {{ $env_key }}
+              value: {{ $env_value.value | quote }}
+            {{- end }}
+          {{- end }}
+          {{- if eq .Values.useCSI false }}
+            {{- range $env_key, $env_value :=  .Values.env }}
+            {{- if not (typeIs "string" $env_value.value ) }}
+            - name: {{ $env_key }}
+              valueFrom: {{ toYaml $env_value.valueFrom | nindent 16 }}
+            {{- end }}
+            {{- end }}
+            {{- end }}

@@ -1,0 +1,52 @@
+{
+  "name": "Restroom Occupancy",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://sirendev.westus.cloudapp.azure.com/restroom",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "rm -rf build && GENERATE_SOURCEMAP=false react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "engines": {
+    "node": "16.1.0.3",
+    "npm": "6.7.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "internal",
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/icons-material": "latest",
+    "@mui/material": "latest",
+    "@mui/x-data-grid": "latest",
+    "@mui/x-date-pickers": "latest",
+    "axios": "latest",
+    "http-proxy-middleware": "^2.0.6",
+    "chart.js": "^4.0.0",
+    "react-apexcharts": "^1.4.0",
+    "cors": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-router": "latest",
+    "react-router-dom": "latest",
+    "react-scripts": "latest",
+    "typescript": "latest",
+    "newrelic":"latest"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
+  }
+}

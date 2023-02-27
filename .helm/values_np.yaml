@@ -1,0 +1,12 @@
+image:
+  repository: devsupport.azurecr.io/connected-restroom-dashboard
+  tag: v4
+nrMode: dev
+replicas: 3
+host: sirennp.westus.cloudapp.azure.com
+cert: tls-cert
+nodeSelectorKey: agentpool
+nodeSelectorValue: sirennppool
+imagepullsecret: devsupport
+path: "/restroom"
+
