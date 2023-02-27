@@ -1,5 +1,5 @@
-# connected-restroom-dashboard
-Connected restroom dashboard service
+# reactapp-fetchapi
+
 
 ## Developing locally (back end API running in prod)
       Run npm install to install the dependencies.
@@ -11,7 +11,7 @@ Connected restroom dashboard service
 Execute following steps sequentially to make stable npm build for productioin, create docker image, push docker image to acr and run helm chart in aks.
 
       npm run build 
-      docker build -t connected-restroom-dashboard:v2 . 
-      docker tag connected-restroom-dashboard:v2 devsupport.azurecr.io/connected-restroom-dashboard:v2
-      docker push devsupport.azurecr.io/connected-restroom-dashboard:v21
-      helm install -f .helm/values.yaml connected-restroom-dashboard .helm
+      docker build -t reactapp-fetchapi:v2 . 
+      docker tag reactapp-fetchapi:v2 devsupport.azurecr.io/reactapp-fetchapi:v2
+      docker push devsupport.azurecr.io/reactapp-fetchapi:v21
+      helm install -f .helm/values.yaml reactapp-fetchapi .helm
